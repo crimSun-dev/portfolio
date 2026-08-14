@@ -1,0 +1,143 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<meta name="color-scheme" content="dark">
+<title>crimSun Power Engine — Universal Scaling System</title>
+<meta name="description" content="crimSun's proprietary universal power and levelling system: CR-Compression, two-zone sigmoidal damage, and 5-tier ki combat, resolved live between two fighters.">
+<meta name="theme-color" content="#08080A">
+<link rel="icon" href="./assets/crimsun-mark-DM3mXsTJ.png" type="image/png">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@500;700;900&family=JetBrains+Mono:wght@400;500;700&family=Inter:wght@400;500;600&display=swap" rel="stylesheet">
+
+<!--
+  DIRECTION CONTRACT — crimSun Power Engine (Operate)
+
+  THESIS: A two-body instrument, not a fight screen. Both fighters are resolved
+  against each other in one pass, so the surface leads with the single number
+  that pass produces — the tilt — and refuses the category default of two
+  symmetric character cards separated by a VS badge.
+
+  OWN-WORLD: crimSun heat on near-black #08080A. Flame-cut chamfered panels
+  edged in a 1px heat gradient, mirrored left/right. A solar arc as the primary
+  instrument, echoing the logo's flame curl. Orbitron for display, JetBrains
+  Mono for every label, readout and log line, Inter for helper prose only.
+  P1 burns crimson-orange, P2 burns molten gold; one fire, two temperatures.
+  No rounded cards, no glass, no gradient headings.
+
+  STORY: The operator configures two fighters across race, era, level, form,
+  mastery, ki tier and attributes; watches the arc tilt live as drain and XP
+  tick in real time; throws hands; and reads the exact R → M → MIT → DMG chain
+  that produced each result in a scouter-style log.
+
+  FIRST VIEWPORT: App chrome bar (flame mark, crimSun wordmark, POWER ENGINE,
+  live tick pip). Beneath it the solar balance arc at full width with each
+  fighter's effective PL and ratio flanking its low ends. Beneath that, the tops
+  of both fighter columns — vitals and stat readouts above the fold. The primary
+  action sits in a command rail pinned to the bottom of the viewport, always
+  reachable no matter how far the operator has scrolled into the loadout.
+
+  FORM: Instrument panel / scouter readout. Brief-pinned visual world (the
+  crimSun brand system), so no concept roll was run — the brief pins the
+  direction and the brief wins.
+-->
+  <script type="module" crossorigin src="./assets/index-CXezxrAM.js"></script>
+  <link rel="stylesheet" crossorigin href="./assets/index-CGrWCnEe.css">
+</head>
+<body>
+  <a class="skip" href="#arena">Skip to arena</a>
+
+  <div class="shell">
+    <header class="masthead">
+      <div class="masthead__brand">
+        <img class="masthead__mark" src="./assets/crimsun-mark-DM3mXsTJ.png" alt="" width="254" height="330">
+        <span class="wordmark">crim<span class="wordmark__s">S</span>un</span>
+      </div>
+      <div class="masthead__rule" aria-hidden="true"></div>
+      <h1 class="masthead__title">Power Engine</h1>
+      <p class="masthead__meta">
+        <span class="masthead__kicker">Proprietary · Universal Scaling System</span>
+        <span class="pip" data-ref="tickPip"><i></i><b data-ref="clock">T+ 0:00</b></span>
+      </p>
+    </header>
+
+    <section class="balance" aria-labelledby="balance-title">
+      <h2 class="balance__title" id="balance-title">
+        <span>Power balance</span>
+        <span class="balance__verdict" data-ref="verdict" role="status">dead even · 1.00×</span>
+      </h2>
+
+      <div class="balance__grid">
+        <div class="balance__party balance__party--p1">
+          <span class="balance__who" data-ref="balName1">Goku</span>
+          <span class="balance__pl" data-ref="balPL1">—</span>
+          <span class="balance__unit">effective PL</span>
+          <span class="balance__ratio">R → <b data-ref="balRatio1">1.00</b></span>
+        </div>
+
+        <div class="balance__stage">
+          <svg class="balance__arc" viewBox="0 0 1000 210" role="img"
+               aria-label="Power balance arc" data-ref="arc">
+            <defs>
+              <!-- Anchored in user space so the visible window of the arc picks up
+                   colour by its distance from the apex: deepening crimson toward
+                   P1, brightening gold toward P2. -->
+              <linearGradient id="heatL" gradientUnits="userSpaceOnUse" x1="500" y1="0" x2="60" y2="0">
+                <stop offset="0%" stop-color="#FF8E00"></stop>
+                <stop offset="55%" stop-color="#FF2B00"></stop>
+                <stop offset="100%" stop-color="#C40000"></stop>
+              </linearGradient>
+              <linearGradient id="heatR" gradientUnits="userSpaceOnUse" x1="500" y1="0" x2="940" y2="0">
+                <stop offset="0%" stop-color="#FF8E00"></stop>
+                <stop offset="55%" stop-color="#FFC400"></stop>
+                <stop offset="100%" stop-color="#FFE566"></stop>
+              </linearGradient>
+              <filter id="ember" x="-120%" y="-120%" width="340%" height="340%">
+                <feGaussianBlur stdDeviation="7" result="b"></feGaussianBlur>
+                <feMerge><feMergeNode in="b"></feMergeNode><feMergeNode in="SourceGraphic"></feMergeNode></feMerge>
+              </filter>
+            </defs>
+            <g data-ref="arcTicks" class="arc__ticks"></g>
+            <path class="arc__track" data-ref="arcTrack" fill="none"></path>
+            <!-- One static path revealed by a dash window, so the sweep animates on
+                 stroke-dasharray rather than on `d` (which only Chrome interpolates). -->
+            <path class="arc__fill" data-ref="arcFill" fill="none" pathLength="100"></path>
+            <line class="arc__mid" data-ref="arcMid"></line>
+            <g class="arc__puckg" data-ref="arcPuck">
+              <circle class="arc__puck" r="7" cx="0" cy="0" filter="url(#ember)"></circle>
+            </g>
+          </svg>
+        </div>
+
+        <div class="balance__party balance__party--p2">
+          <span class="balance__who" data-ref="balName2">Beerus</span>
+          <span class="balance__pl" data-ref="balPL2">—</span>
+          <span class="balance__unit">effective PL</span>
+          <span class="balance__ratio">R → <b data-ref="balRatio2">1.00</b></span>
+        </div>
+      </div>
+    </section>
+
+    <main class="arena" id="arena" data-ref="arena"></main>
+
+    <section class="logbook" aria-labelledby="log-title">
+      <div class="logbook__head">
+        <h2 id="log-title">Combat log</h2>
+        <span class="logbook__count" data-ref="logCount">0 entries</span>
+      </div>
+      <ol class="logbook__list" data-ref="logList" aria-live="off"></ol>
+      <p class="logbook__empty" data-ref="logEmpty">—</p>
+      <p class="sr-only" data-ref="logAnnounce" role="status"></p>
+    </section>
+
+    <footer class="colophon">
+      <p>crimSun Power Engine</p>
+    </footer>
+  </div>
+
+  <div class="rail" data-ref="rail"></div>
+
+</body>
+</html>

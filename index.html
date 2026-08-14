@@ -1,0 +1,661 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Draven Chen — Software Engineer · crimSun</title>
+<meta name="description" content="Draven Chen. Software engineer and game systems programmer, open to software engineering and game development roles. Shipped a Godot editor plugin as a paid asset and two WebGL games playable in-browser. Computer Science at SNHU, graduating mid-2027.">
+<meta name="theme-color" content="#06060A">
+<link rel="canonical" href="https://crimsun-dev.github.io/portfolio/">
+<meta property="og:title" content="Draven Chen — Software Engineer · crimSun">
+<meta property="og:description" content="Shipped a Godot editor plugin as a paid asset and two WebGL games playable in-browser. Computer Science at SNHU, graduating mid-2027. Open to work.">
+<meta property="og:type" content="website">
+<meta property="og:url" content="https://crimsun-dev.github.io/portfolio/">
+<meta property="og:image" content="https://crimsun-dev.github.io/portfolio/assets/img/og-card.png">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:image" content="https://crimsun-dev.github.io/portfolio/assets/img/og-card.png">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Chakra+Petch:wght@400;500;600;700&family=Michroma&family=Zen+Kaku+Gothic+New:wght@300;400;500;700&display=swap" rel="stylesheet">
+<link rel="preload" as="image" href="assets/img/slide-1.webp" fetchpriority="high">
+<link rel="icon" href="assets/img/flame.png">
+<link rel="stylesheet" href="assets/ink-vars.css">
+<link rel="stylesheet" href="assets/style.css">
+</head>
+<body>
+<!--
+THESIS: A crimSun command interface. Ink calligraphy meets a Jarvis HUD — the enso is still drawn by a real brush, but it now sits inside an instrument rig that tracks, ticks and breathes. It refuses the two category defaults it sits between: the austere monochrome ink portfolio with nothing alive in it, and the neon-purple "AI" dashboard with glowing rectangles and no craft underneath.
+OWN-WORLD: Void black in four layers, never flat — a living solar-circuit under a command deck. Etched PCB traces carry slow charge through the substrate while solar plasma and lava-lamp heat rise behind everything. Accent ramp taken from the crimSun flame itself — crimson #FF2E1F through ember #FF7A16 to solar gold #FFC21A, plasma #FFF0D6 at tips only. Brush geometry for every organic mark; precision HUD chrome for every instrument — corner brackets, dashed orbital arcs, degree ticks, scan sweeps, a scouter lens. Michroma for display, Chakra Petch for HUD data, Zen Kaku Gothic New for prose.
+STORY: A recruiter lands inside a running instrument, reads a name and a shipped-work claim before the rig finishes booting, watches gameplay actually move, and leaves through an email address.
+FIRST VIEWPORT: Void black over a live circuit field that thins across the reading column and thickens in the margins. Left, an enso in white ink inside a rotating HUD rig with degree ticks and a radar sweep; a four-frame portrait slideshow breathes and blooms into colour inside it. Right, DRAVEN CHEN in Michroma caps over a brush rule, the role, the shipped-work line, two CTAs and open-to-work — the last two live from the first frame, never animated in. The crimSun flame sits as a real image at the lower right and in the masthead.
+FORM: crimSun command interface; brief-pinned by Draven, superseding seed ac98927f.
+FINISH: unreviewed and undocumented is unfinished; this build ends with the finish review, the verdict, and DESIGN.md
+-->
+
+<a class="skip" href="#main">Skip to content</a>
+
+<canvas class="field" aria-hidden="true"></canvas>
+<div class="veil" aria-hidden="true"></div>
+<div class="scan" aria-hidden="true"></div>
+<div class="grain" aria-hidden="true"></div>
+<div class="progress" aria-hidden="true"><span></span></div>
+<div class="hud-cursor" aria-hidden="true"><i></i><u></u></div>
+
+<header class="masthead">
+  <span class="rail" aria-hidden="true"><i></i></span>
+
+  <a class="mast-seal" href="#hero" aria-label="crimSun — back to top">
+    <span class="seal-bay" aria-hidden="true"></span>
+    <img src="assets/img/flame.png" alt="" width="28" height="28">
+    <span class="mast-word">crim<b>S</b>un</span>
+  </a>
+
+  <nav class="mast-nav" aria-label="Sections">
+    <a href="#studio"><em>01</em><span>Studio</span></a>
+    <a href="#craft"><em>02</em><span>Craft</span></a>
+    <a href="#work"><em>03</em><span>Work</span></a>
+    <a href="#creator" data-nav="creator"><em>04</em><span>Arena</span></a>
+    <a href="#about"><em>05</em><span>Origin</span></a>
+    <a href="#contact"><em>06</em><span>Contact</span></a>
+  </nav>
+
+  <div class="mast-right">
+    <div class="scouter" aria-hidden="true">
+      <span class="lens">
+        <span class="lens-sweep"></span>
+        <span class="lens-cross"></span>
+      </span>
+      <span class="scouter-data">
+        <b><i>Scan</i><u data-readout="pct">0</u>%</b>
+        <b><i>Lock</i><u data-readout="target">Hero</u></b>
+        <span class="meter"><span data-readout="bar"></span></span>
+      </span>
+    </div>
+
+    <a class="launch" href="crimsun-power-engine.html" target="_blank" rel="noopener">
+      <span class="launch-key" aria-hidden="true"></span>
+      <span class="launch-text">Power Engine<span class="sr"> (opens in a new tab)</span></span>
+    </a>
+
+    <a class="mast-cv" href="assets/Draven_Chen_Resume.pdf" download>Résumé</a>
+  </div>
+</header>
+
+<main id="main" tabindex="-1">
+
+<!-- ============================== HERO ============================== -->
+<section class="hero" id="hero">
+  <div class="hero-grid">
+
+    <div class="enso-stage">
+      <div class="rig" aria-hidden="true"></div>
+      <figure class="portrait">
+        <div class="slides">
+          <img class="slide is-on" src="assets/img/slide-1.webp" alt="Draven Chen" width="800" height="800" fetchpriority="high">
+          <img class="slide" src="assets/img/slide-2.webp" alt="" width="800" height="800" loading="lazy">
+          <img class="slide" src="assets/img/slide-3.webp" alt="" width="800" height="800" loading="lazy">
+          <img class="slide" src="assets/img/slide-4.webp" alt="" width="800" height="800" loading="lazy">
+        </div>
+        <span class="shutter" aria-hidden="true"></span>
+      </figure>
+      <div class="enso" data-ink="enso" aria-hidden="true"></div>
+      <div class="seal seal-hero" aria-hidden="true">
+        <img src="assets/img/flame.png" alt="" width="76" height="76">
+      </div>
+    </div>
+
+    <div class="hero-text">
+      <h1 class="display"><span class="ln">Draven</span> <span class="ln">Chen</span></h1>
+      <div class="rule" data-ink="rule" aria-hidden="true"></div>
+      <p class="role">Software engineer <i>·</i> game systems programmer</p>
+      <p class="fact">I've shipped a Godot editor plugin as a paid asset and two WebGL games you can play in this tab, no install. Computer Science at SNHU, graduating mid-2027.</p>
+
+      <div class="focus" role="group" aria-label="Tailor this portfolio to a role">
+        <span class="focus-label" aria-hidden="true">Focus</span>
+        <div class="focus-track">
+          <span class="focus-ind" aria-hidden="true"></span>
+          <button type="button" data-focus="all" aria-pressed="true">All</button>
+          <button type="button" data-focus="engineering" aria-pressed="false">Software eng</button>
+          <button type="button" data-focus="games" aria-pressed="false">Game dev</button>
+          <button type="button" data-focus="creator" aria-pressed="false">Gamer &amp; creator</button>
+        </div>
+      </div>
+
+      <div class="acts">
+        <a class="act act-1" href="https://crimsun-studios.itch.io/" target="_blank" rel="noopener">Play a build<span class="sr"> (opens in a new tab)</span></a>
+        <a class="act" href="https://github.com/crimSun-dev" target="_blank" rel="noopener">GitHub<span class="sr"> (opens in a new tab)</span></a>
+      </div>
+      <p class="status"><span class="wetdot" aria-hidden="true"></span>Open to software engineering &amp; game development roles · Bogor, Indonesia · remote-ready</p>
+    </div>
+
+  </div>
+  <a class="cue" href="#studio"><span>Scroll</span></a>
+</section>
+
+<!-- ============================== STUDIO ============================== -->
+<section class="band studio" id="studio">
+  <div class="wrap">
+    <div class="head">
+      <h2 class="display">crimSun</h2>
+      <div class="rule" data-ink="mid" aria-hidden="true"></div>
+    </div>
+    <div class="studio-grid">
+      <div class="studio-say">
+        <p class="lede">crimSun is the name I publish under. Games and engine tooling, built solo, released publicly.</p>
+        <p class="body">Whatever I finish gets published, so the source or the build is always there to look at. Game work, tooling and anime projects all go out under the same mark. The long game is to grow crimSun into a AAA anime game studio, with original characters and original worlds. Everything here is groundwork for that.</p>
+        <div class="links">
+          <a href="https://crimsun-studios.itch.io/" target="_blank" rel="noopener">itch.io<span class="sr"> (opens in a new tab)</span></a>
+          <a href="https://www.instagram.com/crimsun.studio/" target="_blank" rel="noopener">Instagram<span class="sr"> (opens in a new tab)</span></a>
+        </div>
+      </div>
+      <div class="studio-marks">
+        <figure class="frame">
+          <span class="frame-plate">
+            <img src="assets/img/mascot.webp" alt="The crimSun mascot mark: a hooded figure with a black cat, ringed in flame" loading="lazy" width="620" height="620">
+            <span class="scanline" aria-hidden="true"></span>
+          </span>
+          <span class="brackets" aria-hidden="true"></span>
+          <figcaption><b>Mascot mark</b><span>Primary</span></figcaption>
+        </figure>
+        <figure class="frame">
+          <span class="frame-plate">
+            <img src="assets/img/wordmark-dark.webp" alt="The crimSun wordmark set beside the flame mark" loading="lazy" width="900" height="506">
+            <span class="scanline" aria-hidden="true"></span>
+          </span>
+          <span class="brackets" aria-hidden="true"></span>
+          <figcaption><b>Wordmark</b><span>Horizontal lockup</span></figcaption>
+        </figure>
+      </div>
+    </div>
+
+    <!-- ---------- gallery ---------- -->
+    <div class="gallery">
+      <div class="teasers-head teasers-head--sub">
+        <h3>Ravey — the Shadow Fox</h3>
+        <p>My first original character.</p>
+      </div>
+
+      <div class="plates">
+        <figure class="frame plate plate--wide">
+          <button class="frame-plate" type="button"
+                  data-full="assets/art/ravey-01.webp"
+                  data-cap="Ravey — the Shadow Fox">
+            <img src="assets/art/ravey-01-sm.webp" alt="Ravey crouched on a branch in silhouette, a full moon behind her through the canopy" loading="lazy" width="900" height="470">
+            <span class="scanline" aria-hidden="true"></span>
+            <span class="zoom" aria-hidden="true">Expand</span>
+          </button>
+          <span class="brackets" aria-hidden="true"></span>
+        </figure>
+
+        <figure class="frame plate">
+          <button class="frame-plate" type="button"
+                  data-full="assets/art/ravey-02.webp"
+                  data-cap="Ravey — the Shadow Fox">
+            <img src="assets/art/ravey-02-sm.webp" alt="Ravey kneeling in a glowing forest hollow among white flowers and teal light" loading="lazy" width="900" height="507">
+            <span class="scanline" aria-hidden="true"></span>
+            <span class="zoom" aria-hidden="true">Expand</span>
+          </button>
+          <span class="brackets" aria-hidden="true"></span>
+        </figure>
+
+        <figure class="frame plate">
+          <button class="frame-plate" type="button"
+                  data-full="assets/art/ravey-03.webp"
+                  data-cap="Ravey — the Shadow Fox">
+            <img src="assets/art/ravey-03-sm.webp" alt="Ravey in full colour, seated in a split on a sunlit path with a black cat on her shoulder" loading="lazy" width="900" height="507">
+            <span class="scanline" aria-hidden="true"></span>
+            <span class="zoom" aria-hidden="true">Expand</span>
+          </button>
+          <span class="brackets" aria-hidden="true"></span>
+        </figure>
+      </div>
+    </div>
+  </div>
+</section>
+
+<div class="lightbox" hidden>
+  <button class="lb-close" type="button" aria-label="Close">&#10005;</button>
+  <figure class="lb-body">
+    <figcaption class="lb-cap"></figcaption>
+  </figure>
+</div>
+
+<!-- ============================== CRAFT ============================== -->
+<section class="band craft" id="craft">
+  <div class="wrap">
+    <div class="head">
+      <h2 class="display">The craft</h2>
+      <div class="rule" data-ink="mid" aria-hidden="true"></div>
+      <p class="head-note">
+        A seal <i class="v" role="img" aria-label="Credly verified"></i> marks a skill independently verified on Credly. The rest are languages I work in daily and coursework I've passed.
+      </p>
+    </div>
+
+    <div class="tiers">
+      <div class="tier">
+        <div class="tier-mark" data-ink="heavy" aria-hidden="true"></div>
+        <h3>Core</h3>
+        <ul>
+          <li>Python <i class="v" role="img" aria-label="Credly verified"></i></li>
+          <li>Java <i class="v" role="img" aria-label="Credly verified"></i></li>
+          <li>C++</li><li>C#</li><li>TypeScript</li><li>JavaScript</li><li>HTML</li>
+          <li>Unity</li>
+        </ul>
+      </div>
+      <div class="tier">
+        <div class="tier-mark" data-ink="mid" aria-hidden="true"></div>
+        <h3>Engineering</h3>
+        <ul>
+          <li>Computer Science <i class="v" role="img" aria-label="Credly verified"></i></li>
+          <li>Software Architecture <i class="v" role="img" aria-label="Credly verified"></i></li>
+          <li>Systems Design <i class="v" role="img" aria-label="Credly verified"></i></li>
+          <li>Software Engineering <i class="v" role="img" aria-label="Credly verified"></i></li>
+          <li>Software Design <i class="v" role="img" aria-label="Credly verified"></i></li>
+          <li>Algorithms <i class="v" role="img" aria-label="Credly verified"></i></li>
+          <li>Database Design <i class="v" role="img" aria-label="Credly verified"></i></li>
+          <li>SQL <i class="v" role="img" aria-label="Credly verified"></i></li>
+          <li>APIs <i class="v" role="img" aria-label="Credly verified"></i></li>
+          <li>Web Development <i class="v" role="img" aria-label="Credly verified"></i></li>
+          <li>Operating Systems <i class="v" role="img" aria-label="Credly verified"></i></li>
+          <li>SDLC <i class="v" role="img" aria-label="Credly verified"></i></li>
+        </ul>
+      </div>
+      <div class="tier">
+        <div class="tier-mark" data-ink="light" aria-hidden="true"></div>
+        <h3>Foundations</h3>
+        <ul>
+          <li>Calculus I</li>
+          <li>Calculus II</li>
+          <li>Calculus III</li>
+          <li>Differential Equations</li>
+          <li>Linear Algebra <i class="v" role="img" aria-label="Credly verified"></i></li>
+          <li>Statistics <i class="v" role="img" aria-label="Credly verified"></i></li>
+          <li>Causal Inference <i class="v" role="img" aria-label="Credly verified"></i></li>
+          <li>Intel x86 Assembly <i class="v" role="img" aria-label="Credly verified"></i></li>
+          <li>Systems Thinking <i class="v" role="img" aria-label="Credly verified"></i></li>
+          <li>Data Presentation <i class="v" role="img" aria-label="Credly verified"></i></li>
+        </ul>
+      </div>
+    </div>
+
+    <p class="tier-foot">
+      Thirty-one credentials carry the seal in full, including statistical probability and sampling, computer programming, database administration and development, and web applications.
+      <a href="https://www.credly.com/users/draven-chen.90247d30/badges/credly" target="_blank" rel="noopener">Check every seal on Credly<span class="sr"> (opens in a new tab)</span></a>
+    </p>
+  </div>
+</section>
+
+<!-- ============================== WORK ============================== -->
+<section class="band work" id="work">
+  <div class="wrap">
+    <div class="head">
+      <h2 class="display">The work</h2>
+      <div class="rule" data-ink="mid" aria-hidden="true"></div>
+    </div>
+
+    <ul class="dests">
+      <li>
+        <a href="https://crimsun-studios.itch.io/" target="_blank" rel="noopener">
+          <span class="wash" aria-hidden="true"></span>
+          <h3>itch.io</h3>
+          <p>Playable builds under the crimSun label, including a Godot editor plugin published as a commercial asset. Two of the games run in the browser with nothing to install.</p>
+          <span class="url">crimsun-studios.itch.io<span class="sr"> (opens in a new tab)</span></span>
+        </a>
+      </li>
+      <li>
+        <a href="crimsun-power-engine.html" target="_blank" rel="noopener">
+          <span class="wash" aria-hidden="true"></span>
+          <h3>Power Engine</h3>
+          <p>A universal power and levelling system I designed and built: CR-compression, two-zone sigmoidal damage, and five-tier ki combat, resolved live between two fighters. Runs in the browser.</p>
+          <span class="url">Launch the instrument<span class="sr"> (opens in a new tab)</span></span>
+        </a>
+      </li>
+      <li>
+        <a href="https://github.com/crimSun-dev" target="_blank" rel="noopener">
+          <span class="wash" aria-hidden="true"></span>
+          <h3>GitHub</h3>
+          <p>Personal projects: engine tooling, a TypeScript Model Context Protocol integration, and everything I build outside coursework.</p>
+          <span class="url">github.com/crimSun-dev<span class="sr"> (opens in a new tab)</span></span>
+        </a>
+      </li>
+      <li>
+        <a href="https://github.com/crimSun-dev/academic-assignments-project-portfolio" target="_blank" rel="noopener">
+          <span class="wash" aria-hidden="true"></span>
+          <h3>Academic portfolio</h3>
+          <p>Coursework and technical assignments from the SNHU Computer Science degree: data structures, systems architecture, object-oriented programming.</p>
+          <span class="url">github.com/crimSun-dev/academic-assignments-project-portfolio<span class="sr"> (opens in a new tab)</span></span>
+        </a>
+      </li>
+      <li>
+        <a href="https://www.credly.com/users/draven-chen.90247d30/badges/credly" target="_blank" rel="noopener">
+          <span class="wash" aria-hidden="true"></span>
+          <h3>Credly</h3>
+          <p>Thirty-one skill credentials, verified by the issuers rather than self-reported.</p>
+          <span class="url">credly.com/users/draven-chen.90247d30<span class="sr"> (opens in a new tab)</span></span>
+        </a>
+      </li>
+    </ul>
+
+    <!-- ---------- live teasers ---------- -->
+    <div class="teasers">
+      <div class="teasers-head">
+        <h3>Running builds</h3>
+        <p>Captured straight from my own games. No sound, no edit. Each tile opens its itch.io page.</p>
+      </div>
+      <ul class="tiles">
+        <li class="tile">
+          <a href="https://crimsun-studios.itch.io/sunnysideworld" target="_blank" rel="noopener">
+            <span class="tile-media">
+              <video poster="assets/video/teaser-01.webp" muted playsinline loop preload="none" width="720" height="405" aria-label="Gameplay from Sunnyside World">
+                <source src="assets/video/teaser-01.webm" type="video/webm">
+                <source src="assets/video/teaser-01.mp4" type="video/mp4">
+              </video>
+              <span class="brackets" aria-hidden="true"></span>
+              <span class="sweep" aria-hidden="true"></span>
+            </span>
+            <span class="tile-foot"><b>Sunnyside World</b><i>Survival sandbox<span class="sr"> — opens itch.io in a new tab</span></i></span>
+          </a>
+        </li>
+        <li class="tile">
+          <a href="https://crimsun-studios.itch.io/merge-cats-defender" target="_blank" rel="noopener">
+            <span class="tile-media">
+              <video poster="assets/video/teaser-03.webp" muted playsinline loop preload="none" width="720" height="405" aria-label="Gameplay from Merge Cats Defender">
+                <source src="assets/video/teaser-03.webm" type="video/webm">
+                <source src="assets/video/teaser-03.mp4" type="video/mp4">
+              </video>
+              <span class="brackets" aria-hidden="true"></span>
+              <span class="sweep" aria-hidden="true"></span>
+            </span>
+            <span class="tile-foot"><b>Merge Cats Defender</b><i>Lane defense<span class="sr"> — opens itch.io in a new tab</span></i></span>
+          </a>
+        </li>
+        <li class="tile">
+          <a href="https://crimsun-studios.itch.io/tiny-swords-last-stand" target="_blank" rel="noopener">
+            <span class="tile-media">
+              <video poster="assets/video/teaser-02.webp" muted playsinline loop preload="none" width="720" height="405" aria-label="Gameplay from Tiny Swords Last Stand">
+                <source src="assets/video/teaser-02.webm" type="video/webm">
+                <source src="assets/video/teaser-02.mp4" type="video/mp4">
+              </video>
+              <span class="brackets" aria-hidden="true"></span>
+              <span class="sweep" aria-hidden="true"></span>
+            </span>
+            <span class="tile-foot"><b>Tiny Swords Last Stand</b><i>Tower defense<span class="sr"> — opens itch.io in a new tab</span></i></span>
+          </a>
+        </li>
+        <li class="tile tile-soon">
+          <span class="tile-media">
+            <span class="bay" aria-hidden="true"></span>
+            <span class="bay-label">More coming soon</span>
+            <span class="brackets" aria-hidden="true"></span>
+          </span>
+          <span class="tile-foot"><b>Bay 04</b><i>In development</i></span>
+        </li>
+      </ul>
+
+      <!-- ---------- Unity ---------- -->
+      <div class="teasers-head teasers-head--sub">
+        <h3>Unity games &amp; prototypes</h3>
+        <p>Built in the Unity editor, captured in play mode.</p>
+      </div>
+      <ul class="tiles tiles--wide">
+        <li class="tile">
+          <a href="https://github.com/crimSun-dev/unity_dragonballsol_prototype" target="_blank" rel="noopener">
+            <span class="tile-media">
+              <video poster="assets/video/teaser-04.webp" muted playsinline loop preload="none" width="720" height="405" aria-label="Play-mode capture from the Dragon Ball Sol prototype in Unity">
+                <source src="assets/video/teaser-04.webm" type="video/webm">
+                <source src="assets/video/teaser-04.mp4" type="video/mp4">
+              </video>
+              <span class="brackets" aria-hidden="true"></span>
+              <span class="sweep" aria-hidden="true"></span>
+            </span>
+            <span class="tile-foot">
+              <b>Dragon Ball Sol</b>
+              <i>Unity prototype · combat HUD, forms and ki driven by the Power Engine<span class="sr"> — opens the GitHub repository in a new tab</span></i>
+            </span>
+          </a>
+        </li>
+      </ul>
+    </div>
+  </div>
+</section>
+
+<!-- ============================== ARENA / CREATOR ============================== -->
+<section class="band creator" id="creator">
+  <div class="wrap">
+    <div class="head">
+      <h2 class="display">The arena</h2>
+      <div class="rule" data-ink="mid" aria-hidden="true"></div>
+      <p class="head-note">Two channels, ten years of Minecraft, and every Dragon Ball game finished to 100%.</p>
+    </div>
+
+    <!-- ---------- FuseoN ---------- -->
+    <div class="chan chan--fuseon">
+      <div class="chan-head">
+        <span class="chan-tag" aria-hidden="true">01</span>
+        <div>
+          <h3 class="chan-mark">
+            <img src="assets/img/chan-fuseon.webp" alt="FuseoN" width="320" height="320" loading="lazy">
+          </h3>
+          <p>Competitive Minecraft PvP. Duels, Build UHC, and server-scale faction warfare.</p>
+        </div>
+        <a class="chan-go" href="https://www.youtube.com/@fuseon8463" target="_blank" rel="noopener">
+          Channel<span class="sr"> (opens YouTube in a new tab)</span>
+        </a>
+      </div>
+
+      <div class="record" data-record>
+        <div class="record-bar">
+          <span class="record-live" aria-hidden="true"></span>
+          <span class="record-title">Ranked record</span>
+          <span class="record-region">Asia</span>
+        </div>
+
+        <div class="record-body">
+          <ul class="record-rows">
+            <li><i>Build UHC · daily streak</i><b>101</b><em class="gold">1st</em></li>
+            <li><i>Daily win streak</i><b>51</b><em class="gold">1st</em></li>
+            <li><i>Build UHC ladder</i><b>1,650<span>ELO</span></b><em>3rd</em></li>
+            <li><i>UHC duel level</i><b>210</b><em>53 run</em></li>
+            <li><i>Peak specialist ELO</i><b>10,001</b><em></em></li>
+            <li><i>Recorded matches</i><b>3,097<span>W</span>217<span>L</span></b><em>14.27</em></li>
+          </ul>
+
+          <figure class="gauge" data-gauge="93.5">
+            <svg viewBox="0 0 120 120" aria-hidden="true" focusable="false">
+              <defs>
+                <linearGradient id="gaugeGrad" x1="0" y1="0" x2="1" y2="1">
+                  <stop offset="0" stop-color="#FF2E1F"></stop>
+                  <stop offset="0.6" stop-color="#FF7A16"></stop>
+                  <stop offset="1" stop-color="#FFC21A"></stop>
+                </linearGradient>
+              </defs>
+              <circle class="gauge-track" cx="60" cy="60" r="50"></circle>
+              <circle class="gauge-fill" cx="60" cy="60" r="50"></circle>
+            </svg>
+            <figcaption><b data-gauge-num>0</b><i>Win rate</i></figcaption>
+          </figure>
+        </div>
+
+        <span class="brackets" aria-hidden="true"></span>
+        <span class="record-sweep" aria-hidden="true"></span>
+      </div>
+
+      <div class="proofs">
+        <figure class="frame">
+          <button class="frame-plate" type="button"
+                  data-full="assets/proof/builduhc-elo.webp"
+                  data-cap="Build UHC ladder — FuseoN at 1,650 ELO, rank 3">
+            <img src="assets/proof/builduhc-elo.webp" alt="Build UHC leaderboard showing FuseoN third at 1,650 ELO, behind Maksely and Dionyo" loading="lazy" width="1100" height="502">
+            <span class="scanline" aria-hidden="true"></span>
+            <span class="zoom" aria-hidden="true">Expand</span>
+          </button>
+          <span class="brackets" aria-hidden="true"></span>
+          <figcaption class="frame-note">Worth knowing: the two players above me are EU and NA. I play from Asia — separate server regions, separate player pools, and far deeper fields feeding the ladders they climb.</figcaption>
+        </figure>
+      </div>
+
+      <div class="era">
+        <h4>The DemocracyCraft era</h4>
+        <p>A hundred days spent overthrowing a government inside a roleplay server, filmed. What the server wrote about it afterwards:</p>
+        <blockquote class="quote">
+          <p>“FuseoN, a small-time YouTuber published a video on YouTube that resulted in an explosion of popularity. The server went from 250 unique joins per day to 550–600 in the space of 2 weeks. The player record continually reached records. By the third week the video had accumulated close to 200,000 views, 10,000 likes, and doubled FuseoN's subscriber base to 5,000.”</p>
+          <cite>DemocracyCraft server history</cite>
+        </blockquote>
+        <p class="era-note">The server passed 100 concurrent players for the first time on 28 March 2021, 350 days after opening. Its third trailer landed on 12 April 2021, DC's first anniversary. The later Crimson Order videos left pure mechanics behind for raids, ambushes and factional politics.</p>
+        <figure class="frame frame--wide">
+          <button class="frame-plate" type="button"
+                  data-full="assets/proof/dc-impact.webp"
+                  data-cap="DemocracyCraft server history — the FuseoN video's impact">
+            <img src="assets/proof/dc-impact.webp" alt="DemocracyCraft server history describing the surge in players after the FuseoN video, with a screenshot showing 123 players online" loading="lazy" width="1000" height="1120">
+            <span class="scanline" aria-hidden="true"></span>
+            <span class="zoom" aria-hidden="true">Expand</span>
+          </button>
+          <span class="brackets" aria-hidden="true"></span>
+        </figure>
+      </div>
+
+      <ul class="reels" data-reels="fuseon"></ul>
+
+      <p class="chan-foot">
+        Roots go back further: my
+        <a href="https://www.planetminecraft.com/member/techthelazercore/" target="_blank" rel="noopener">Planet Minecraft uploads<span class="sr"> (opens in a new tab)</span></a>
+        are nine years old.
+      </p>
+    </div>
+
+    <!-- ---------- FuSon ---------- -->
+    <div class="chan chan--fuson">
+      <div class="chan-head">
+        <span class="chan-tag" aria-hidden="true">02</span>
+        <div>
+          <h3 class="chan-mark">
+            <img src="assets/img/chan-fuson.webp" alt="FuSon" width="320" height="320" loading="lazy">
+          </h3>
+          <p>The wider channel. Reviews, livestreams, and travel and food shorts from Japan.</p>
+        </div>
+        <a class="chan-go" href="https://www.youtube.com/@itsFuSon" target="_blank" rel="noopener">
+          Channel<span class="sr"> (opens YouTube in a new tab)</span>
+        </a>
+      </div>
+      <p class="chan-body">FuseoN is one thing done deeply. FuSon is everything else: the ULTIMATE review series, general gaming and tech, and the shorts I shoot while travelling.</p>
+      <ul class="reels" data-reels="fuson"></ul>
+    </div>
+
+    <!-- ---------- Steam ---------- -->
+    <div class="chan chan--steam">
+      <div class="chan-head">
+        <span class="chan-tag" aria-hidden="true">03</span>
+        <div>
+          <h3>Completionist</h3>
+          <p>Dragon Ball isn't a passing interest. I finish these.</p>
+        </div>
+        <a class="chan-go" href="https://steamcommunity.com/id/ITSFUSON/" target="_blank" rel="noopener">
+          Steam<span class="sr"> (opens in a new tab)</span>
+        </a>
+      </div>
+      <p class="chan-body">Xenoverse 2 at 61 of 61. Kakarot at 42 of 42. Four perfect games, 133 achievements inside them.</p>
+      <div class="proofs">
+        <figure class="frame">
+          <button class="frame-plate" type="button"
+                  data-full="assets/proof/steam-completionist.webp"
+                  data-cap="Steam completionist showcase — 4 perfect games, 133 achievements">
+            <img src="assets/proof/steam-completionist.webp" alt="Steam completionist showcase: Dragon Ball Xenoverse 2 at 61 of 61 achievements and Dragon Ball Z Kakarot at 42 of 42, with 4 perfect games and 133 achievements" loading="lazy" width="667" height="629">
+            <span class="scanline" aria-hidden="true"></span>
+            <span class="zoom" aria-hidden="true">Expand</span>
+          </button>
+          <span class="brackets" aria-hidden="true"></span>
+        </figure>
+      </div>
+    </div>
+
+    <!-- ---------- off the clock ---------- -->
+    <div class="chan chan--life">
+      <div class="chan-head">
+        <span class="chan-tag" aria-hidden="true">04</span>
+        <div>
+          <h3>Off the clock</h3>
+          <p>What I'd want a sponsor to know.</p>
+        </div>
+      </div>
+      <p class="chan-body">I love to travel and I love food — most of the shorts on FuSon are one or the other, shot around Japan. The goal is to keep doing both while I work. I used to livestream constantly, anything and everything; I still do when the week allows, which lately it rarely does.</p>
+      <p class="chan-body">I'd like to work with tech and toy brands — <b>Nintendo</b>, <b>ROG</b>, <b>Razer</b>, <b>Logitech</b> on hardware; <b>Bandai</b> and <b>Banpresto</b> on figures. Peripherals, laptops, consoles, figures. I ship software as well as content, which is a rarer combination than it should be. Open to conversations.</p>
+    </div>
+  </div>
+</section>
+
+<!-- ============================== ORIGIN ============================== -->
+<section class="band about" id="about">
+  <div class="wrap">
+    <div class="head">
+      <h2 class="display">Origin</h2>
+      <div class="rule" data-ink="mid" aria-hidden="true"></div>
+    </div>
+
+    <ol class="arc">
+      <li>
+        <h3><span class="yr">2018</span>Two school assignments</h3>
+        <p>Eighth grade. My first two projects ever, both plain HTML, both built for class. Both are still up, unedited.</p>
+        <div class="links">
+          <a href="https://crimsun-dev.github.io/first-ever-website/" target="_blank" rel="noopener">First website<span class="sr"> (opens in a new tab)</span></a>
+          <a href="https://crimsun-dev.github.io/first-ever-webgroup-project/" target="_blank" rel="noopener">First group project<span class="sr"> (opens in a new tab)</span></a>
+        </div>
+      </li>
+      <li>
+        <h3><span class="yr">Then</span>Physics and video games</h3>
+        <p>I fell into web development, game development and electronics at the same time. I loved physics and I loved games, and I had an enormous inner world that didn't fit neatly into either. What I actually wanted was for all of it to be one thing.</p>
+      </li>
+      <li>
+        <h3><span class="yr">Why</span>Everything is named after the sun</h3>
+        <p>crimSun. FuseoN. FuSon. Every handle I've ever picked points at the same thing — the energy of the sun. That was never a coincidence. It is the same dream carrying a name: warmth, power, and the thing everything else is arranged around.</p>
+      </li>
+      <li>
+        <h3><span class="yr">Who</span>Sun Wukong and Son Goku</h3>
+        <p>To me they are the two best protagonists ever written, and I keep coming back to them for one reason: neither of them will stay limited. That is the bar I set for myself.</p>
+      </li>
+    </ol>
+  </div>
+</section>
+
+<!-- ============================== CONTACT ============================== -->
+<section class="band contact" id="contact">
+  <div class="wrap">
+    <div class="seal seal-end" aria-hidden="true">
+      <img src="assets/img/flame.png" alt="" width="88" height="88">
+    </div>
+    <h2 class="display">Get in touch</h2>
+    <div class="rule" data-ink="mid" aria-hidden="true"></div>
+    <div class="mails">
+      <a class="mail" href="mailto:draven.chen1st@gmail.com">
+        <span class="mail-tag">Direct</span>draven.chen1st@gmail.com
+      </a>
+      <a class="mail" href="mailto:crimsun.studio1st@gmail.com">
+        <span class="mail-tag">crimSun studio</span>crimsun.studio1st@gmail.com
+      </a>
+    </div>
+    <p class="copy-note"><button type="button" class="copy" data-copy="draven.chen1st@gmail.com">Copy direct address</button></p>
+    <nav class="social" aria-label="Elsewhere">
+      <a href="https://www.linkedin.com/in/draven-chen-151764357" target="_blank" rel="noopener">LinkedIn<span class="sr"> (opens in a new tab)</span></a>
+      <a href="https://github.com/crimSun-dev" target="_blank" rel="noopener">GitHub<span class="sr"> (opens in a new tab)</span></a>
+      <a href="https://crimsun-studios.itch.io/" target="_blank" rel="noopener">itch.io<span class="sr"> (opens in a new tab)</span></a>
+      <a href="https://www.instagram.com/crimsun.studio/" target="_blank" rel="noopener">Instagram<span class="sr"> (opens in a new tab)</span></a>
+      <a href="https://www.credly.com/users/draven-chen.90247d30/badges/credly" target="_blank" rel="noopener">Credly<span class="sr"> (opens in a new tab)</span></a>
+      <a href="https://www.youtube.com/@itsFuSon" target="_blank" rel="noopener">YouTube<span class="sr"> (opens in a new tab)</span></a>
+      <a href="assets/Draven_Chen_Resume.pdf" download>Résumé</a>
+    </nav>
+  </div>
+</section>
+
+</main>
+
+<footer class="foot">
+  <span class="mast-word">crim<b>S</b>un</span>
+  <span>© 2026 Draven Chen</span>
+</footer>
+
+<script src="assets/ink.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/gsap.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/ScrollTrigger.min.js"></script>
+<script src="assets/hud.js"></script>
+<script src="assets/app.js"></script>
+</body>
+</html>
