@@ -966,15 +966,21 @@ button.frame-plate{cursor:zoom-in;-webkit-appearance:none;appearance:none}
 .tiles--wide .tile-foot i{max-width:60ch}
 
 /* web development: the client's own mark sits on the plate, so the tile is
-   identifiable before the video has loaded a single frame */
+   identifiable before the video has loaded a single frame.
+   Video is a compositor layer on https; without an explicit z-index it paints
+   over later siblings. isolation + translateZ keeps the mark above the decode. */
 .webdev{grid-template-columns:minmax(0,1fr) minmax(0,.52fr);max-width:none;align-items:start}
 .tile-mark{
-  position:absolute;right:12px;top:12px;z-index:5;
-  width:clamp(38px,4.4vw,54px);height:auto;
-  filter:drop-shadow(0 4px 14px rgba(0,0,0,.8));
-  opacity:.92;transition:transform .5s var(--snap),opacity .4s var(--ease);
+  position:absolute;right:10px;top:10px;z-index:6;
+  width:clamp(56px,7vw,80px);height:auto;
+  padding:7px;border-radius:10px;
+  background:rgba(6,6,10,.62);
+  border:1px solid rgba(255,240,214,.16);
+  filter:drop-shadow(0 6px 16px rgba(0,0,0,.75));
+  pointer-events:none;transform:translateZ(0);
+  opacity:.96;transition:transform .5s var(--snap),opacity .4s var(--ease);
 }
-.tile a:hover .tile-mark{transform:scale(1.08) rotate(-4deg);opacity:1}
+.tile a:hover .tile-mark{transform:translateZ(0) scale(1.08) rotate(-4deg);opacity:1}
 
 .tiles{
   list-style:none;margin:0;padding:0;
@@ -985,10 +991,12 @@ button.frame-plate{cursor:zoom-in;-webkit-appearance:none;appearance:none}
 
 .tile-media{
   display:block;position:relative;aspect-ratio:16/9;overflow:hidden;
+  isolation:isolate;
   background:#000;border:1px solid var(--hairline);
   transition:border-color .45s var(--ease),box-shadow .5s var(--ease),transform .5s var(--ease);
 }
 .tile-media video{
+  position:relative;z-index:1;
   width:100%;height:100%;object-fit:cover;display:block;
   filter:saturate(.88) contrast(1.05);
   transition:filter .5s var(--ease),transform 1.1s var(--ease);
