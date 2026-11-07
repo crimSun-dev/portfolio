@@ -16,3 +16,6 @@ Edit Skills - Credly_files/
 Thumbs.db
 Desktop.ini
 .DS_Store
+
+# Website client recording masters (encoded copies live in assets/video/)
+websites video teasers/
