@@ -968,8 +968,9 @@ button.frame-plate{cursor:zoom-in;-webkit-appearance:none;appearance:none}
 /* web development: the client's own mark sits on the plate, so the tile is
    identifiable before the video has loaded a single frame.
    Video is a compositor layer on https; without an explicit z-index it paints
-   over later siblings. isolation + translateZ keeps the mark above the decode. */
-.webdev{grid-template-columns:minmax(0,1fr) minmax(0,.52fr);max-width:none;align-items:start}
+   over later siblings. isolation + translateZ keeps the mark above the decode.
+   Two client tiles share the row as equal columns. */
+.tiles.webdev{grid-template-columns:repeat(2,minmax(0,1fr));max-width:none;align-items:start}
 .tile-mark{
   position:absolute;right:10px;top:10px;z-index:6;
   width:clamp(56px,7vw,80px);height:auto;
@@ -1558,7 +1559,7 @@ button.frame-plate{cursor:zoom-in;-webkit-appearance:none;appearance:none}
   .studio-marks{grid-template-columns:1fr}
   .tiles{grid-template-columns:1fr}
   .plates{grid-template-columns:1fr}
-  .webdev{grid-template-columns:1fr}
+  .tiles.webdev{grid-template-columns:1fr}
   .lb-img{max-height:74vh}
   .social{gap:2px 6px}
 }
