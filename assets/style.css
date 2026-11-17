@@ -1266,6 +1266,8 @@ button.frame-plate{cursor:zoom-in;-webkit-appearance:none;appearance:none}
 .edu-grid .record{margin:0}
 .edu-grid .record-rows em{text-align:center}
 .academics .tier-foot{margin-top:clamp(22px,3.5vh,36px)}
+.edu-proofs{display:grid;grid-template-columns:repeat(auto-fit,minmax(min(100%,380px),1fr));gap:clamp(16px,2.4vw,26px);margin:clamp(16px,2.4vw,26px) 0 0;align-items:start}
+.academics .tier-foot a{display:inline-block;margin-top:6px}
 .record-rows--courses{padding:4px 16px 10px}
 .record-rows--courses li{grid-template-columns:64px minmax(0,1fr) 52px}
 .record-rows--courses b{
