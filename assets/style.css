@@ -862,12 +862,13 @@ button.frame-plate{cursor:zoom-in;-webkit-appearance:none;appearance:none}
 .lb-close:hover,.lb-close:focus-visible{border-color:var(--crim);color:var(--ink)}
 
 /* --- craft --- */
-.tiers{display:grid;grid-template-columns:repeat(auto-fit,minmax(220px,1fr));gap:clamp(30px,4.5vw,64px)}
+.tiers{display:grid;grid-template-columns:repeat(auto-fit,minmax(200px,1fr));gap:clamp(30px,4.5vw,64px)}
 .tier-mark{height:26px;width:100%;margin:0 0 20px}
 .tier-mark .ink-svg path{fill:var(--ink)}
 .tier:nth-child(1) .tier-mark .ink-svg path{fill:var(--crim)}
 .tier:nth-child(2) .tier-mark .ink-svg path{fill:var(--ember)}
-.tier:nth-child(3) .tier-mark .ink-svg path{fill:var(--ink-3)}
+.tier:nth-child(3) .tier-mark .ink-svg path{fill:var(--ink-2)}
+.tier:nth-child(4) .tier-mark .ink-svg path{fill:var(--ink-3)}
 
 .tier h3{
   margin:0 0 16px;font-family:var(--f-hud);font-weight:600;font-size:13px;
@@ -882,7 +883,7 @@ button.frame-plate{cursor:zoom-in;-webkit-appearance:none;appearance:none}
 }
 .tier li:hover{color:var(--ink);padding-left:8px}
 .tier:nth-child(1) li{font-size:17px;color:var(--ink)}
-.tier:nth-child(3) li{font-size:13.5px;color:var(--ink-3)}
+.tier:nth-child(4) li{font-size:13.5px;color:var(--ink-3)}
 .tier li:last-child{border-bottom:0}
 
 .v{
@@ -1259,6 +1260,24 @@ button.frame-plate{cursor:zoom-in;-webkit-appearance:none;appearance:none}
 .record:hover .record-sweep{animation:rec-sweep 2.2s var(--ease) infinite}
 @keyframes rec-sweep{0%{transform:translateY(-140%)}100%{transform:translateY(360%)}}
 
+/* ---------- academic record: the same scouter panel, read off the degree audit ---------- */
+.academics{margin:clamp(56px,9vh,104px) 0 0}
+.edu-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(min(100%,380px),1fr));gap:clamp(16px,2.4vw,26px);align-items:start}
+.edu-grid .record{margin:0}
+.edu-grid .record-rows em{text-align:center}
+.academics .tier-foot{margin-top:clamp(22px,3.5vh,36px)}
+.record-rows--courses{padding:4px 16px 10px}
+.record-rows--courses li{grid-template-columns:64px minmax(0,1fr) 52px}
+.record-rows--courses b{
+  white-space:normal;font-family:var(--f-text);font-weight:500;
+  font-size:14.5px;line-height:1.4;letter-spacing:0;color:var(--ink-2);
+}
+.record-rows--courses em{text-align:center}
+.record-sub{
+  padding:12px 16px 2px;border-top:1px solid var(--hairline);
+  font-family:var(--f-hud);font-size:10px;letter-spacing:.2em;text-transform:uppercase;color:var(--ink-3);
+}
+
 .proofs{display:grid;gap:clamp(16px,2.4vw,26px);margin:0 0 8px}
 .frame--wide{max-width:640px}
 
@@ -1529,6 +1548,8 @@ button.frame-plate{cursor:zoom-in;-webkit-appearance:none;appearance:none}
   .record-rows{width:100%}
   .record-rows li{grid-template-columns:minmax(0,1fr) auto;row-gap:2px}
   .record-rows em{grid-column:2;text-align:right}
+  .record-rows--courses li{grid-template-columns:56px minmax(0,1fr) 46px}
+  .record-rows--courses em{grid-column:auto;text-align:center}
   .reels{grid-template-columns:1fr}
   .arc li{padding-left:38px}
   .arc li::before{left:12px}

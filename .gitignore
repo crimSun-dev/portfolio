@@ -24,3 +24,7 @@ package-lock.json
 
 # Website client recording masters (encoded copies live in assets/video/)
 websites video teasers/
+
+# Raw SNHU audit and portal screenshots (contain student ID); the site shows the figures only
+Grades and Transcript/
+_resume.html
